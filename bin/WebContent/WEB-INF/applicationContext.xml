@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:repository="http://www.springframework.org/schema/data/repository"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.11.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<context:component-scan base-package="com.bansachonline.springmvc.controller"/>
+	<context:component-scan base-package="com.bansachonline.springmvc.model"/>
+	<context:component-scan base-package="com.bansachonline.springmvc.service"/>
+	<context:component-scan base-package="com.bansachonline.springmvc.dao"/>
+	<context:component-scan base-package="com.bansachonline.springmvc.interfacedao"/>
+	<context:component-scan base-package="com.bansachonline.springmvc.test"/>
+	
+	<bean id="datasoucre" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+		<property name="url" value="jdbc:sqlserver://DESKTOP-DOAN-HI\\SQLEXPRESS:1433;databaseName=bansachsql;user=sa;password=123"/>
+		<property name="username" value="sa"/>
+		<property name="password" value="123"/>
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="datasoucre"/>
+		<property name="annotatedPackages" value="com.bansachonline.springmvc.dao"/>
+		<property name="packagesToScan" value="com.bansachonline.springmvc.model"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.jdbc.lob.non_contextual_creation">true</prop>
+				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+
+	<!--<bean id="mailMail" class="com.mkyong.common.">-->
+		<!--<property name="mailSender" ref="mailSender" />-->
+	<!--</bean>-->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<tx:annotation-driven proxy-target-class="true" />
+</beans>

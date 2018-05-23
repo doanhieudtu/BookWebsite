@@ -1,0 +1,411 @@
+@charset "UTF-8";
+html,body{
+    height: 100%;
+    width: 100%;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+i{
+	color: cadetblue ! important;
+	
+}
+.danhsachb{
+	background-color: white ! important; 
+}
+#ThongTinSach{background-color: white ! important; 
+}
+.nav-link{
+	text-shadow: 0 1px 0 rgba(8, 8, 8, 0.2) ! important;
+}
+.dropdown-item{
+	color: silver !important;
+	background-color: cadetblue !important;
+}
+/*css login*/
+#body-login{
+    background-color: darkcyan;
+    height: 100%;
+    width: 100%;
+}
+#body-flex-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+#container-login{
+    display: flex;
+    width: 820px;
+    height: 600px;
+    background-color: white;
+}
+#container-login-left{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width:390px;
+    height: 600px;
+    background-image: url("/resources/image/login-girl-face.jpg")
+  
+}
+
+#container-login-right{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.header-login {
+    text-align: center;
+}
+.header-login span{
+    color: lightcoral
+}
+#text-logo{
+    font-size: 40px;
+}
+#text-hueristed{
+    font-size: 19px;
+    opacity: 0.7;
+}
+.footer-login p span{
+    font-size:15px; 
+    color: darkturquoise;
+}
+#container-login-right{
+    padding: 30px 16px;
+}
+#header-top-right{
+    color: cadetblue;
+}
+.active{
+    color: lightcoral;
+}
+#icon-social-login{
+    align-self: flex-end;
+}
+#container-center-signin-right{
+    display: none;
+}
+#container-center-login-right input[type="text"]{
+    width: 100%;
+    height: 40px;
+    margin-top: 15px;
+    border: 0;
+    background:silver;
+    padding-left: 60px;
+    font-size: 15px;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+#container-center-login-right input[type="password"]{
+    width: 100%;
+    height: 40px;
+    margin-top: 15px;
+    border: 0;
+    background:silver;
+    padding-left: 60px;
+    font-size: 15px;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+#container-center-login-right .btton-dang-nhap{
+    background-color:cadetblue;
+    color: silver;
+    font-size: 15px;
+    margin-top: 10px;
+    padding-top:15px;
+    width: 100%;
+    text-align:center;
+    height: 30px;
+    border: 0;
+    font-family:"FontAwesome";
+}
+.background-icon-email{
+    position: absolute;
+    padding-top: 20px;
+    padding-left: 10px;
+    font-size: 30 px;
+    color: cadetblue;
+}
+.background-icon-lock{
+    position: absolute;
+    padding-top: 20px;
+    padding-left: 10px;
+    color: cadetblue;
+    font-size: 30 px; 
+}
+#container-center-signin-right  input[type="text"]{
+    width: 100%;
+    height: 40px;
+    margin-top: 15px;
+    border: 0;
+    background:silver;
+    padding-left: 60px;
+    font-size: 15px;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+#container-center-signin-right  input[type="password"]{
+    width: 100%;
+    height: 40px;
+    margin-top: 15px;
+    border: 0;
+    background:silver;
+    padding-left: 60px;
+    font-size: 15px;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+#container-center-signin-right  input[type="submit"]{
+    background-color:cadetblue;
+    color: silver;
+    font-size:15px;
+    margin-top: 10px;
+    width: 100%;
+    height: 40px;
+    border: 0;
+    font-family:"FontAwesome";
+}
+
+/*css login*/
+/*trang chu*/
+.header-menu{
+    background: url("/resources/image/book-background.jpg") no-repeat center center fixed;
+    height: 500px;
+    background-color: rgba(0, 0, 0, 0.75);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
+}
+.navbar-all{
+    border: none !important;
+    background: none !important;
+}
+.navbar-home-lik-vv{
+    padding-left: 20%;
+    
+}
+.nav-link{
+    color: rgba(0, 230, 230, 100) ! important;
+    font-size: 18px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.navbar-toggler{
+    border-color:rgba(0, 230, 230, 100) ! important;
+}
+.navbar-brand{
+    background: url("/resources/image/logo.jpg") no-repeat center center fixed;
+}
+#Info{
+    padding-top: 20px;
+    text-align: center;
+}
+#title-product{
+    margin-top: 50px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 300%;
+}
+.product img{
+    margin-top: 10px;
+    width:80%;
+    height: 256px;
+}
+.product{
+    margin-top: 46px;
+    border: solid 2px black;
+    border-radius: 5px;
+}
+.product span{
+    font-size: 20px;
+}
+ p{
+    color: white;
+}
+#footer{
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background: black;
+    text-align: center;
+}
+.title-footer{
+    font-size: 32px;
+    color: white;
+}
+#txtEmail{
+    width: 100%;
+    border: none;
+
+}
+#content{
+    width:100% ;
+    height: 100px;
+}
+
+/*trang chu*/
+/*chi tiet san pham*/
+#header-menu{
+	background-color: black ! important; 
+}
+#noi-dung-chi-tiet{
+	margin-top: 50px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 50px;
+}
+#Sach img{
+	width:100%;
+    height: 400px;
+}
+#infor-sach th{
+	width: 30% ! important;
+}
+#infor-sach tr{
+	width: 70%;
+}
+/*chi tiet san pham*/
+/*Gio Hang*/
+
+.soluong{
+	width:80px !important;
+	text-align: center;
+	border: none;
+	background-color: silver;
+}
+.tensach{
+	width:50% !important;
+	margin-left: 20px !important;
+}
+#DatHang{
+	background-color: cadetblue;
+	text-align: center;
+	color: silver;
+	 font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.product-giohang{
+	text-align: center;
+	padding-right:0px !important;
+	width:70px !important;
+}
+.product-giohang img{
+	
+	margin-right:0px !important;
+	width:70px !important;
+    height: 100px !important;
+}
+#sach{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+/*Gio Hang*/
+/*Ho so khach hang*/
+.custom-select{
+	width: 250px !important;
+    height: 50px !important;
+    font-family: 'signikalight', sans-serif !important;
+    font-size: 18px !important;
+    text-align: left !important;
+}
+.custom-select-web-design:hover {
+	background-color: silver !important;
+}
+/*Ho so khach hang*/
+/*Them Moi Sach*/
+#DanhSachSanPham{
+	background-color: white  !important;
+	color: black;
+}
+#ThemMoiSach{
+	background-color: white;
+}
+#btnThemSach{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	width:100%;
+	color:white;
+	background: cadetblue;
+}
+#btnXoaSach{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	width:100%;
+	color:white;
+	background: cadetblue;
+}
+#img-upload{
+	border:2px;
+	width: 200px;
+	height: 300px;
+}
+#ThongTinSach th{
+	padding-top:10px;
+	width:40% !important;
+	margin-right: 0px;
+}
+#ThongTinSach td{
+	padding-top:10px;
+	text-align: center;
+}
+#ThongTinSach td img{
+	text-align: center;
+	width: 140px;
+	height: 200px;
+}
+.left-content{
+    margin-bottom: 30px !important;
+    margin-top: 30px !important;
+}
+/*The MOI sACH*/
+/*cd-nxb-tacgia*/
+#ThongTin{
+   background-color: white !important;
+}
+#DanhMuc{
+    background-color: white !important;
+}
+/*cd-nxb-tacgia*/
+#btnLuuSach{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width:100%;
+    color:white;
+    background: cadetblue;
+}
+#btnHuyChinhSua{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width:100%;
+    color:white;
+    background: cadetblue;
+}
+#btton-yeu-cau{
+    background-color:cadetblue;
+    color: white;
+    font-size: 15px;
+    margin-top: 10px;
+    padding-top:15px;
+    width: 100%;
+    text-align:center;
+    height: 30px;
+    border: 0;
+    font-family:"FontAwesome";
+}
+#btton-khoi-phuc{
+    background-color:cadetblue;
+    color: white;
+    font-size: 15px;
+    margin-top: 10px;
+    padding-top:15px;
+    width: 100%;
+    text-align:center;
+    height: 30px;
+    border: 0;
+    font-family:"FontAwesome";
+}

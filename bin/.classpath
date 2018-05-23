@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="lib" path="C:/Users/DELL/Downloads/mailactivation/activation.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DELL/Downloads/mailactivation/mail.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
