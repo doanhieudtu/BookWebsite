@@ -34,19 +34,21 @@ public class ChiTietSanPhamController {
 	@GetMapping("Sach")
 	public String ChiTietSach(@RequestParam String MaSach, ModelMap mm)
 	{
-		ArrayList<Sach> sach= new ArrayList<Sach>();
-		sach= (ArrayList<Sach>)sachService.FinbyProperty("MaSach", Integer.parseInt(MaSach),"MaSach", "DESC")[0];
-		
-		ArrayList<SachVaTacGia> lsTacGiaVaSach= new ArrayList<>();
-		ArrayList<TacGia> lsTacGia= new ArrayList<>();
-		
-		lsTacGiaVaSach= (ArrayList<SachVaTacGia>) sachVaTacGia.FindbyProperty("MaSach",Integer.parseInt(MaSach),"MaSach","DESC")[0];
-		
-		for(SachVaTacGia a: lsTacGiaVaSach) lsTacGia.add(a.gettAgIa());
-		mm.addAttribute("Sach", sach.get(0));
-		mm.addAttribute("NhaXuatBan", sach.get(0).getnHaxUatbAn().getTenNXB());
-		mm.addAttribute("TacGiaChiTiet", lsTacGia);
-		mm.addAttribute("ChuDe", chuDeService.ShowAll());
+		try {
+			ArrayList<Sach> sach= new ArrayList<Sach>();
+			sach= (ArrayList<Sach>)sachService.FinbyProperty("MaSach", Integer.parseInt(MaSach),"MaSach", "DESC")[0];
+
+			ArrayList<SachVaTacGia> lsTacGiaVaSach= new ArrayList<>();
+			ArrayList<TacGia> lsTacGia= new ArrayList<>();
+
+			lsTacGiaVaSach= (ArrayList<SachVaTacGia>) sachVaTacGia.FindbyProperty("MaSach",Integer.parseInt(MaSach),"MaSach","DESC")[0];
+
+			for(SachVaTacGia a: lsTacGiaVaSach) lsTacGia.add(a.gettAgIa());
+			mm.addAttribute("Sach", sach.get(0));
+			mm.addAttribute("NhaXuatBan", sach.get(0).getnHaxUatbAn().getTenNXB());
+			mm.addAttribute("TacGiaChiTiet", lsTacGia);
+			mm.addAttribute("ChuDe", chuDeService.ShowAll());
+		}catch (Exception e){}
 		return "chi-tiet-sach";
 	}
 }
