@@ -1,14 +1,13 @@
 package com.bansachonline.springmvc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "GopY")
 public class GopY {
     @Id
+    @Column(name="MaGopY")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int MaGopY;
     @Column(name = "Email")
     private String Email;
