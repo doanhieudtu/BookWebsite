@@ -2,6 +2,7 @@ package com.bansachonline.springmvc.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -10,6 +11,8 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import com.bansachonline.springmvc.model.*;
+import com.bansachonline.springmvc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,26 +24,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.bansachonline.springmvc.model.ChiTietDonHang;
-import com.bansachonline.springmvc.model.ChuDe;
-import com.bansachonline.springmvc.model.DonHang;
-import com.bansachonline.springmvc.model.GioHang;
-import com.bansachonline.springmvc.model.ItemGioHang;
-import com.bansachonline.springmvc.model.KhachHang;
-import com.bansachonline.springmvc.model.NhaXuatBan;
-import com.bansachonline.springmvc.model.Sach;
-import com.bansachonline.springmvc.model.SachVaTacGia;
-import com.bansachonline.springmvc.model.Sach_No_Peroperty_Object;
-import com.bansachonline.springmvc.model.TacGia;
-import com.bansachonline.springmvc.service.ChiTietDonHangService;
-import com.bansachonline.springmvc.service.ChuDeService;
-import com.bansachonline.springmvc.service.DonHangService;
-import com.bansachonline.springmvc.service.KhacHangService;
-import com.bansachonline.springmvc.service.NhaXuatBanService;
-import com.bansachonline.springmvc.service.SachService;
-import com.bansachonline.springmvc.service.SachVaTacGiaService;
-import com.bansachonline.springmvc.service.TacGiaService;
-import com.bansachonline.springmvc.service.XuLyGioHangSerVice;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -54,6 +37,9 @@ public class ApiAjaxController {
 	
 	@Autowired
 	SachService sachService;
+
+	@Autowired
+	GopYService gopYService;
 	
 	@Autowired
 	DonHangService donHangService;
@@ -615,53 +601,53 @@ public class ApiAjaxController {
 	@RequestMapping("save-san-pham")
 	@ResponseBody
 	public String EidtSanPham(@RequestParam String dataJson,@RequestParam String HinhAnh,@RequestParam String MaSach ) {
-
+		ArrayList<Sach> sach= (ArrayList<Sach>) sachService.FindbyProperty("MaSach",Integer.parseInt(MaSach),"MaSach","DESC")[0];
 		try {
 			ObjectMapper ojbect= new ObjectMapper();
 			Sach_No_Peroperty_Object sachJson= ojbect.readValue(dataJson,Sach_No_Peroperty_Object.class);
-			System.out.println(sachJson.getAnhBia());
 			System.out.println(MaSach);
-			ArrayList<Sach> sach= (ArrayList<Sach>) sachService.FindbyProperty("MaSach",Integer.parseInt(MaSach),"MaSach","DESC")[0];
 			ArrayList<NhaXuatBan> lsNXB= new ArrayList<>();
 			ArrayList<ChuDe> lsChuDe= new ArrayList<>();
 			ArrayList<TacGia> lsTacGia= new ArrayList<>();
-			lsChuDe= (ArrayList<ChuDe>)chuDeServce.FindbyProperty("TenCD",sachJson.getMaChuDe(),"MaCD","DESC")[0];
-
-			lsNXB= (ArrayList<NhaXuatBan>)nxbService.FindbyProperty("TenNXB",sachJson.getMaNXB(),"MaNXB","DESC")[0];
-
-			lsTacGia= (ArrayList<TacGia>) tacGiaService.FindbyProperty("TenTG",sachJson.getTacGia(),"MaTG","DESC")[0];
-
-			sach.get(0).setTenSach(sachJson.getTenSach());
-			sach.get(0).setAnhBia(HinhAnh);
-			sach.get(0).setcHudE(lsChuDe.get(0));
-			sach.get(0).setGiaBan(sachJson.getGiaBan());
-			sach.get(0).setMoTa(sachJson.getMoTa());
-			sach.get(0).setNgayCapNhat(sachJson.getNgayCapNhat());
-			sach.get(0).setSoLuongTon(sachJson.getSoLuongTon());
-			sach.get(0).setnHaxUatbAn(lsNXB.get(0));
-			SachVaTacGia sachVaTacGia= new SachVaTacGia();
-			sachVaTacGia.setsAchtAcgIa(sach.get(0));
-			sachVaTacGia.settAgIa(lsTacGia.get(0));
-			sachVaTacGia.setVaiTro("Chủ bút");
-			ArrayList<SachVaTacGia> lsSachVaTacGia= new ArrayList<>();
-			lsSachVaTacGia.add(sachVaTacGia);
-			sach.get(0).setsAchtAcgIa(lsSachVaTacGia);
-
-			ArrayList<ChiTietDonHang> lsChiTietDonHang= new ArrayList<>();
-			lsChiTietDonHang= (ArrayList<ChiTietDonHang>)chiTietService.FindbyProperty("MaSach",MaSach,"MaSach","DESC")[0];
-			for(ChiTietDonHang a: lsChiTietDonHang ) a.setsAchdOnhAng(sach.get(0));
+			try {
+				System.out.println(sachJson.getMaChuDe());
+				lsChuDe= (ArrayList<ChuDe>)chuDeServce.FindbyProperty("TenCD",sachJson.getMaChuDe(),"MaCD","DESC")[0];
+				System.out.println(lsChuDe.size());
+			}catch (Exception e){}
+			try {
+				lsNXB= (ArrayList<NhaXuatBan>)nxbService.FindbyProperty("TenNXB",sachJson.getMaNXB(),"MaNXB","DESC")[0];
+			}catch (Exception e){}
+			try {
+				lsTacGia= (ArrayList<TacGia>) tacGiaService.FindbyProperty("TenTG",sachJson.getTacGia(),"MaTG","DESC")[0];
+			}catch (Exception e){}
+			if(!sachJson.getTenSach().equals(sach.get(0).getTenSach()))sach.get(0).setTenSach(sachJson.getTenSach());
+			if(!HinhAnh.equals(sach.get(0).getAnhBia())||HinhAnh.equals(""))sach.get(0).setAnhBia(HinhAnh);
+			if(sachJson.getNgayCapNhat()!=sach.get(0).getNgayCapNhat()) sach.get(0).setNgayCapNhat(sachJson.getNgayCapNhat());
+			System.out.print(HinhAnh);
+			if(lsChuDe.size()>0){sach.get(0).setcHudE(lsChuDe.get(0));}
+			if(lsNXB.size()>0){sach.get(0).setnHaxUatbAn(lsNXB.get(0));}
+			if(lsTacGia.size()>0){
+				SachVaTacGia sachVaTacGia= new SachVaTacGia();
+				sachVaTacGia.setsAchtAcgIa(sach.get(0));
+				sachVaTacGia.settAgIa(lsTacGia.get(0));
+				sachVaTacGia.setVaiTro("Chủ bút");
+				ArrayList<SachVaTacGia> lsSachVaTacGia= new ArrayList<>();
+				lsSachVaTacGia.add(sachVaTacGia);
+				sach.get(0).setsAchtAcgIa(lsSachVaTacGia);
+			}
+			if(sachJson.getGiaBan()!=sach.get(0).getGiaBan())sach.get(0).setGiaBan(sachJson.getGiaBan());
+			if(!sachJson.getMoTa().equals(sach.get(0).getMoTa()))sach.get(0).setMoTa(sachJson.getMoTa());
+			if(sachJson.getSoLuongTon()!=sach.get(0).getSoLuongTon())sach.get(0).setSoLuongTon(sachJson.getSoLuongTon());
 			sachService.Update(sach.get(0));
-			return "1";
+			return "yes";
 		}catch (Exception e){}
-		return "0";
+		return "no";
 	}
 	@PostMapping
 	@RequestMapping("duyet-giao-hang")
 	@ResponseBody
 	public String DuyetGiaoHang(@RequestParam String MaDH){
-		System.out.println("sâsaSÁ"+MaDH);
 		try {
-			System.out.println("sâsaSÁ"+MaDH);
 			ArrayList<DonHang> donHang= new ArrayList<>();
 			donHang=(ArrayList<DonHang>) donHangService.FindbyProperty("MaDH",Integer.parseInt(MaDH),"MaDH","DESC")[0];
 			donHang.get(0).setTinhTrangGiaoHang((byte)1);
@@ -674,9 +660,7 @@ public class ApiAjaxController {
 	@RequestMapping("duyet-thanh-toan")
 	@ResponseBody
 	public String DuyetThanhToan(@RequestParam String MaDH){
-		System.out.println("sâsaSÁ"+MaDH);
 		try {
-			System.out.println("sâsaSÁ"+MaDH);
 			ArrayList<DonHang> donHang= new ArrayList<>();
 			donHang=(ArrayList<DonHang>) donHangService.FindbyProperty("MaDH",Integer.parseInt(MaDH),"MaDH","DESC")[0];
 			donHang.get(0).setDaThanhToan((byte)1);
@@ -694,6 +678,20 @@ public class ApiAjaxController {
 			List<KhachHang> lsKhacHang= new ArrayList<KhachHang>();
 			lsKhacHang= (ArrayList<KhachHang>) khachHangService.FindbyProperty("MaKH",Integer.parseInt(MaKH),"MaKH","DESC")[0];
 			khachHangService.DeleteKhacHang(lsKhacHang.get(0));
+			return "1";
+		}catch (Exception e){}
+		return "0";
+	}
+	@PostMapping
+	@RequestMapping("gop-y")
+	@ResponseBody
+	public String GopY(@RequestParam String Email,@RequestParam String NoiDung)
+	{
+		try {
+			GopY gopY= new GopY();
+			gopY.setEmail(Email);
+			gopY.setNoiDung(NoiDung);
+			gopYService.add(gopY);
 			return "1";
 		}catch (Exception e){}
 		return "0";
