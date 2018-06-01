@@ -59,6 +59,7 @@ $(document).ready(function() {
             	    success: function(data) {
             	    	soluong= soluong+1;
             	    	$("#SoLuong").text(soluong);
+            	    	$("#themGioHang").show();
 					},
             	});
 			});
@@ -215,7 +216,7 @@ $(document).ready(function() {
     		}
 
             var files=[];
-            var tenhinh;
+            var tenhinh="";
             $("#HinhAnh").change(function(event) {
 				files= event.target.files;
 				tenhinh= files[0].name;
@@ -249,7 +250,6 @@ $(document).ready(function() {
                         window.location.replace('/san-pham/them');
             	    }   	
 				});
-            	console.log(tenhinh);
 			})
 			  $("body").on("click",".XemChiTiet", function() {
 				  var masach=parseInt($(this).closest("tr").find("#MaSach").text());
@@ -534,15 +534,16 @@ $(document).ready(function() {
                 json[field.name]= field.value;
             });
             $.ajax({
-                type: 'POST',
+                type:'POST',
                 url:"/api/save-san-pham",
                 data:{dataJson:JSON.stringify(json),HinhAnh:tenhinh,MaSach:MaSachChiinhSua},
                 success: function(data) {
-                    alert("Chỉnh Sửa Thông Tin Sách Thành Công !!!")
-                    window.location.replace('/san-pham/them');
-                }
+                	 if(data=="yes") {
+                        alert("Chỉnh Sửa Thông Tin Sách Thành Công !!!")
+                        window.location.replace('/san-pham/them');
+                     }
+				}
             });
-            console.log(tenhinh);
         })
 		$( "body" ).on("change","select",function() {
 			$( "select option:selected" ).each(function() {
@@ -624,4 +625,31 @@ $(document).ready(function() {
                         $("#thongbao").append("Khôi phục thất bại.")
                 }
             })
+        })
+		$("#btton-dang-nhap-admin").click(function () {
+			var Emai=$(".email").val();
+			var Pass=$(".matkhau").val();
+			$.ajax({
+                type:"POST",
+                url:"/Admin/Kiem-Tra",
+                data:{Ten:Emai,Password:Pass},
+                success: function (data) {
+					if(data=="0"){$("#thong-bao-dang-nhap-admin").append("Đăng nhập thất bại.")}
+					else window.location.replace('/san-pham/them');
+                }
+            })
+        })
+		$("#send-mail").click(function () {
+			var email=$("#txtEmail").val();
+			var noidung=$("#content").val();
+			$.ajax({
+                type:"POST",
+                url:"/api/gop-y",
+                data:{Email:email,NoiDung:noidung},
+                success: function (data) {
+                    if(data=="1"){
+                    	alert("Đã Gửi.")
+                    }
+                }
+			})
         })
