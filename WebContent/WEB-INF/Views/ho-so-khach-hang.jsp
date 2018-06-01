@@ -108,7 +108,7 @@
     									<input type="text" class="form-control"  value="${User.getEmail()}"  readonly id="Email">
  									</div>
  									<div class="form-group">
-    									<label " >Mật Khẩu.</label>
+    									<label>Mật Khẩu.</label>
     									<input type="password" class="form-control"  value="${User.getMatKhau()}"  readonly id="MatKhau">
  									</div>
  									<div class="form-group" style="display: none" id="luuhoso"><span>****Lưu thông tin..............................<i class="far fa-save fa-2x btn" id="saveHoSo"></i></span></div>

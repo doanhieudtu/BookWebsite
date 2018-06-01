@@ -30,14 +30,13 @@
                           <a class="nav-link" href="#">Dịch Vụ</a>
                         </li>
                         <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <a class=" btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
                             Danh Mục Sách
                           </a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                              <c:forEach var="Item" items="${lsChuDe}">
+                                  <a class="dropdown-item" href="/san-pham/chu-de?MaCD=${Item.getMaCD()}">${Item.getTenCD()}</a>
+                              </c:forEach>
                           </div>
                         </li>
                         <li class="nav-item">

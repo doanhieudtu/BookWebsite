@@ -34,10 +34,9 @@
                             Danh Mục Sách
                           </a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+							  <c:forEach var="Item" items="${lsChuDe}">
+								  <a class="dropdown-item" href="/san-pham/chu-de?MaCD=${Item.getMaCD()}">${Item.getTenCD()}</a>
+							  </c:forEach>
                           </div>
                         </li>
                         <li class="nav-item">
@@ -55,8 +54,7 @@
                            				 ${User.getEmail()}
                           			</a>
                           			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                           			 	<a class="dropdown-item" href="#">Hồ Sơ Cá Nhân</a>
-                            			<a class="dropdown-item" href="#">Lịch Sử Đặt Hàng</a>
+										<a class="dropdown-item" href="/khach-hang/ho-so">Hồ Sơ Cá Nhân</a>
                             			<a class="dropdown-item" href="/khach-hang/dang-xuat">Đăng Xuất</a>
                           			</div>
                           		</c:when>

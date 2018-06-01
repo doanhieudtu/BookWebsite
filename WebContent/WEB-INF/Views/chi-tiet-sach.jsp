@@ -34,10 +34,9 @@
                             Danh Mục Sách
                           </a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+								  <c:forEach var="Item" items="${ChuDe}">
+									  <a class="dropdown-item" href="/san-pham/chu-de?MaCD=${Item.getMaCD()}">${Item.getTenCD()}</a>
+								  </c:forEach>
                           </div>
                         </li>
                         <li class="nav-item">
@@ -86,7 +85,7 @@
     			<h3>Danh Mục Chủ Đề</h3>
     			<ul>
     				<c:forEach var="chuDe" items="${ChuDe}">
-    					<li><a href="#">${chuDe.getTenCD()}</a></li>
+    					<li><a href="/san-pham/chu-de?MaCD=${chuDe.getMaCD()}">${chuDe.getTenCD()}</a></li>
     				</c:forEach>
     			</ul>
     		</div>
@@ -138,6 +137,7 @@
       								<th scope="row">Thêm Vào Giỏ Hàng</th>
       								<td>
       								 <i class=" btn fas fa-cart-arrow-down fa-3x" id="addCart"></i></td>
+									<th  scope="row"><span id="themGioHang" style="display: none">Đã thêm vào giỏ hàng</span></th>
     							</tr>
   							</tbody>	
     					</table>
