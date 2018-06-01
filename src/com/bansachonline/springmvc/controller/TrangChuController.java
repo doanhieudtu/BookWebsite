@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.bansachonline.springmvc.service.ChuDeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,17 +21,23 @@ import com.bansachonline.springmvc.service.SachService;
 public class TrangChuController {
 	@Autowired
 	SachService sachService;
-	
+
+	@Autowired
+	ChuDeService chuDeService;
 	@RequestMapping("trangchu")
 	public String TrangChu(ModelMap mm, HttpSession ss) {
-		List<Sach> ls=sachService.ShowInforSach(16,0);
+		try {
+			List<Sach> ls=sachService.ShowInforSach(16,0);
+			mm.put("lsChuDe",chuDeService.ShowAll() );
+			mm.addAttribute("ListSach", ls);
+		}catch (Exception e){}
 		KhachHang khacHang= new KhachHang();
 		try {
 			khacHang=(KhachHang)ss.getAttribute("User");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		mm.addAttribute("ListSach", ls);
+
 		if(khacHang!=null)
 		{
 			return "trangchu";
@@ -41,6 +48,7 @@ public class TrangChuController {
 			khachHang.setEmail("chuadangnhap");
 			mm.addAttribute("User",khachHang);
 		}
+
 		return "trangchu";
 	}
 }
