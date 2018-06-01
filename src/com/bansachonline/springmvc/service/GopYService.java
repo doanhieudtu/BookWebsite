@@ -3,12 +3,14 @@ package com.bansachonline.springmvc.service;
 import com.bansachonline.springmvc.dao.GopYImpl;
 import com.bansachonline.springmvc.model.GopY;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by DELL on 05/25/2018.
  */
+@Service
 public class GopYService {
     @Autowired
     GopYImpl gopYDao;
