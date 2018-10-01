@@ -1,5 +1,7 @@
 package com.bansachonline.springmvc.model;
 
+import org.hibernate.annotations.Type;
+
 import java.util.Date;
 import java.util.List;
 

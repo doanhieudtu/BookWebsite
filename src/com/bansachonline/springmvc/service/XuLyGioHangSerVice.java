@@ -28,7 +28,7 @@ public class XuLyGioHangSerVice {
 	}
 	public boolean ThemSoLuong(int MaSach, ItemGioHang gioHang,int soluong)
 	{
-		ArrayList<Sach> sach= (ArrayList<Sach>) sachDao.FinbyProperty("MaSach",MaSach,"MaSach", "DESC")[0];
+		ArrayList<Sach> sach= (ArrayList<Sach>) sachDao.FindbyProperty("MaSach",MaSach,"MaSach","DESC")[0];
 		if(gioHang.getSoLuong()>sach.get(0).getSoLuongTon()) return false;
 		else
 		{
@@ -38,7 +38,7 @@ public class XuLyGioHangSerVice {
 	}
 	public boolean GiamSoLuong(int MaSach,ItemGioHang gioHang,int soluong)
 	{
-		ArrayList<Sach> sach= (ArrayList<Sach>) sachDao.FinbyProperty("MaSach",MaSach,"MaSach", "DESC")[0];
+		ArrayList<Sach> sach= (ArrayList<Sach>) sachDao.FindbyProperty("MaSach",MaSach,"MaSach","DESC")[0];
 		if(gioHang.getSoLuong()>sach.get(0).getSoLuongTon()) return false;
 		else
 		{

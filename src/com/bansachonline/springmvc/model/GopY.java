@@ -1,5 +1,7 @@
 package com.bansachonline.springmvc.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Entity

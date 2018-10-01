@@ -26,18 +26,17 @@ public class TrangChuController {
 	ChuDeService chuDeService;
 	@RequestMapping("trangchu")
 	public String TrangChu(ModelMap mm, HttpSession ss) {
-		try {
-			List<Sach> ls=sachService.ShowInforSach(16,0);
+		try{
+			List<Sach> ls=sachService.ShowBookLimit(16,0);
 			mm.put("lsChuDe",chuDeService.ShowAll() );
 			mm.addAttribute("ListSach", ls);
-		}catch (Exception e){}
+		}catch (Exception e){ System.out.print(e.getMessage());}
 		KhachHang khacHang= new KhachHang();
 		try {
 			khacHang=(KhachHang)ss.getAttribute("User");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
 		if(khacHang!=null)
 		{
 			return "trangchu";
@@ -48,7 +47,6 @@ public class TrangChuController {
 			khachHang.setEmail("chuadangnhap");
 			mm.addAttribute("User",khachHang);
 		}
-
 		return "trangchu";
 	}
 }

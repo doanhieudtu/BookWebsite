@@ -1,5 +1,7 @@
 package com.bansachonline.springmvc.model;
 
+import org.hibernate.annotations.Type;
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -18,10 +20,13 @@ public class TacGia {
 	@Column(name="MaTG")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int MaTG;
+
 	@Column(name="TenTG")
 	private String TenTG;
+
 	@Column(name="DiaChi")
 	private String DiaChi;
+
 	@Column(name="DienThoai")
 	private String DienThoai;
 	@OneToMany(mappedBy="tAgIa", fetch=FetchType.LAZY)

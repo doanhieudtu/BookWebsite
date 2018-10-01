@@ -73,9 +73,9 @@ public class ApiAjaxController {
 	public void ThemSanPham(@RequestParam String MaSach,HttpSession ss, ModelMap mm)
 	{
 		GioHang gioHang= new GioHang();
-		 gioHang= (GioHang) ss.getAttribute("GioHang");
-		 ArrayList<Sach> sach= (ArrayList<Sach>) sachService.FinbyProperty("MaSach",Integer.parseInt(MaSach),"MaSach", "DESC")[0];
-		 ArrayList<ItemGioHang> lsItema= new ArrayList<>();
+		gioHang= (GioHang) ss.getAttribute("GioHang");
+		ArrayList<Sach> sach= (ArrayList<Sach>) sachService.FindbyProperty("MaSach",Integer.parseInt(MaSach),"MaSach", "DESC")[0];
+		ArrayList<ItemGioHang> lsItema= new ArrayList<>();
 		if(gioHang==null)
 		{
 			System.out.println("Chua co san pham nao");
@@ -214,7 +214,7 @@ public class ApiAjaxController {
 				 for(ItemGioHang a: gioHang.getDanhSachSP())
 				 {	
 					 ChiTietDonHang  chiTietHoaDon= new ChiTietDonHang();
-					 ArrayList<Sach> sach= (ArrayList<Sach>) sachService.FinbyProperty("MaSach",a.getMaSanPham(),"MaSach", "DESC")[0];
+					 ArrayList<Sach> sach= (ArrayList<Sach>) sachService.FindbyProperty("MaSach",a.getMaSanPham(),"MaSach", "DESC")[0];
 					 chiTietHoaDon.setdOnhAng(donHang);
 					 chiTietHoaDon.setsAchdOnhAng(sach.get(0));
 					 sach.get(0).setSoLuongTon(sach.get(0).getSoLuongTon()-a.getSoLuong());
@@ -380,21 +380,15 @@ public class ApiAjaxController {
 			
 			SachVaTacGia sacTacGia= new SachVaTacGia();
 			
-			ArrayList<Sach> lsSach= (ArrayList<Sach>)sachService.FindbyProperty("TenSach",sachJson.getTenSach(),"MaSach","DESC")[0];
-			sacTacGia.setsAchtAcgIa(lsSach.get(0));
+			sacTacGia.setsAchtAcgIa(sach);
 			sacTacGia.setVaiTro("Chủ Bút");
 			lsTacGia= (ArrayList<TacGia>) tacGiaService.FindbyProperty("TenTG",sachJson.getTacGia(),"MaTG","DESC")[0];
 			sacTacGia.settAgIa(lsTacGia.get(0));
 			sachVsTacGia.Add(sacTacGia);
-			
-			ArrayList<SachVaTacGia> lsSachTG= (ArrayList<SachVaTacGia>)sachVsTacGia.FindbyProperty("MaSach",lsSach.get(0).getMaSach(),"MaSach","DESC")[0];
-			
-			
-			lsSach= (ArrayList<Sach>)sachService.FindbyProperty("TenSach",sachJson.getTenSach(),"MaSach","DESC")[0];
-			
-			lsSach.get(0).setsAchtAcgIa(lsSachTG);
-			
-			sachService.Update(lsSach.get(0));
+			List<SachVaTacGia> lsSachVaTacGia= new ArrayList<>();
+			lsSachVaTacGia.add(sacTacGia);
+			sach.setsAchtAcgIa(lsSachVaTacGia);
+			sachService.UpdateInfor(sach);
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -406,7 +400,7 @@ public class ApiAjaxController {
 			e.printStackTrace();
 		}
 		System.out.println(dataJson+"dasdsa"+HinhAnh);
-		return "";
+		return "1";
 	}
 	@PostMapping
 	@RequestMapping(path="chi-tiet-san-pham",produces="text/plain;charset=utf-8")
@@ -414,7 +408,7 @@ public class ApiAjaxController {
 	public String ChiTietSP(@RequestParam int MaSach)
 	{
 		ArrayList<Sach> sach= new ArrayList<Sach>();
-		sach= (ArrayList<Sach>)sachService.FinbyProperty("MaSach", MaSach,"MaSach", "DESC")[0];
+		sach= (ArrayList<Sach>)sachService.FindbyProperty("MaSach", MaSach,"MaSach", "DESC")[0];
 		
 		ArrayList<SachVaTacGia> lsTacGiaVaSach= new ArrayList<>();
 		ArrayList<TacGia> lsTacGia= new ArrayList<>();
@@ -466,12 +460,12 @@ public class ApiAjaxController {
 	@ResponseBody
 	public String XoaSanPhamQuanTri(@RequestParam int MaSach)
 	{
-		ArrayList<Sach> ls=(ArrayList<Sach>) sachService.FinbyProperty("MaSach",MaSach,"MaSach","DESC")[0];
+		ArrayList<Sach> ls=(ArrayList<Sach>) sachService.FindbyProperty("MaSach",MaSach,"MaSach","DESC")[0];
 		ArrayList<SachVaTacGia>lsTacGiaVaSach= (ArrayList<SachVaTacGia>) sachVsTacGia.FindbyProperty("MaSach",MaSach,"MaSach","DESC")[0];
 		ArrayList<ChiTietDonHang> lsChiTietDH=(ArrayList<ChiTietDonHang>) chiTietService.FindbyProperty("MaSach",MaSach,"MaSach","DESC")[0];
 		for(SachVaTacGia a: lsTacGiaVaSach) sachVsTacGia.DeleteSachVSTacGia(a);
 		for(ChiTietDonHang a: lsChiTietDH) chiTietService.DeleteChiTietDonHang(a);
-		sachService.DeleteT(ls.get(0));
+		sachService.DeleteSach(ls.get(0));
  		return "1";
 	}
 	@PostMapping
@@ -605,40 +599,60 @@ public class ApiAjaxController {
 		try {
 			ObjectMapper ojbect= new ObjectMapper();
 			Sach_No_Peroperty_Object sachJson= ojbect.readValue(dataJson,Sach_No_Peroperty_Object.class);
-			System.out.println(MaSach);
-			ArrayList<NhaXuatBan> lsNXB= new ArrayList<>();
-			ArrayList<ChuDe> lsChuDe= new ArrayList<>();
-			ArrayList<TacGia> lsTacGia= new ArrayList<>();
-			try {
-				System.out.println(sachJson.getMaChuDe());
-				lsChuDe= (ArrayList<ChuDe>)chuDeServce.FindbyProperty("TenCD",sachJson.getMaChuDe(),"MaCD","DESC")[0];
-				System.out.println(lsChuDe.size());
-			}catch (Exception e){}
-			try {
+		 	if(sachJson.getTenSach()!=sach.get(0).getTenSach() && sachJson.getTenSach()!=""){sach.get(0).setTenSach(sachJson.getTenSach());}
+			if(sachJson.getMaNXB()!=sach.get(0).getnHaxUatbAn().getTenNXB()){
+				ArrayList<NhaXuatBan> lsNXB= new ArrayList<>();
 				lsNXB= (ArrayList<NhaXuatBan>)nxbService.FindbyProperty("TenNXB",sachJson.getMaNXB(),"MaNXB","DESC")[0];
-			}catch (Exception e){}
-			try {
-				lsTacGia= (ArrayList<TacGia>) tacGiaService.FindbyProperty("TenTG",sachJson.getTacGia(),"MaTG","DESC")[0];
-			}catch (Exception e){}
-			if(!sachJson.getTenSach().equals(sach.get(0).getTenSach()))sach.get(0).setTenSach(sachJson.getTenSach());
-			if(!HinhAnh.equals(sach.get(0).getAnhBia())||HinhAnh.equals(""))sach.get(0).setAnhBia(HinhAnh);
-			if(sachJson.getNgayCapNhat()!=sach.get(0).getNgayCapNhat()) sach.get(0).setNgayCapNhat(sachJson.getNgayCapNhat());
-			System.out.print(HinhAnh);
-			if(lsChuDe.size()>0){sach.get(0).setcHudE(lsChuDe.get(0));}
-			if(lsNXB.size()>0){sach.get(0).setnHaxUatbAn(lsNXB.get(0));}
-			if(lsTacGia.size()>0){
-				SachVaTacGia sachVaTacGia= new SachVaTacGia();
-				sachVaTacGia.setsAchtAcgIa(sach.get(0));
-				sachVaTacGia.settAgIa(lsTacGia.get(0));
-				sachVaTacGia.setVaiTro("Chủ bút");
-				ArrayList<SachVaTacGia> lsSachVaTacGia= new ArrayList<>();
-				lsSachVaTacGia.add(sachVaTacGia);
-				sach.get(0).setsAchtAcgIa(lsSachVaTacGia);
+				if(lsNXB.size()>0){
+					sach.get(0).setnHaxUatbAn(lsNXB.get(0));
+				}
 			}
-			if(sachJson.getGiaBan()!=sach.get(0).getGiaBan())sach.get(0).setGiaBan(sachJson.getGiaBan());
-			if(!sachJson.getMoTa().equals(sach.get(0).getMoTa()))sach.get(0).setMoTa(sachJson.getMoTa());
-			if(sachJson.getSoLuongTon()!=sach.get(0).getSoLuongTon())sach.get(0).setSoLuongTon(sachJson.getSoLuongTon());
-			sachService.Update(sach.get(0));
+			if(sachJson.getMaChuDe()!=sach.get(0).getcHudE().getTenCD()){
+				ArrayList<ChuDe> lsChuDe= new ArrayList<>();
+				lsChuDe= (ArrayList<ChuDe>)chuDeServce.FindbyProperty("TenCD",sachJson.getMaChuDe(),"MaCD","DESC")[0];
+				if(lsChuDe.size()>=0){
+					sach.get(0).setcHudE(lsChuDe.get(0));
+				}
+			}
+			ArrayList<TacGia> lsTacGia= new ArrayList<>();
+			if(sach.get(0).getsAchtAcgIa().size()>0){
+				if(sachJson.getTacGia()!=sach.get(0).getsAchtAcgIa().get(0).gettAgIa().getTenTG())
+				{
+
+					lsTacGia= (ArrayList<TacGia>) tacGiaService.FindbyProperty("TenTG",sachJson.getTacGia(),"MaTG","DESC")[0];
+					if(lsTacGia.size()>0){
+						ArrayList<SachVaTacGia> lsSachVaTacGia= new ArrayList<>();
+						lsSachVaTacGia=(ArrayList<SachVaTacGia>) sachVsTacGia.FindbyProperty("MaTG", lsTacGia.get(0).getMaTG(),"MaTG","DESC")[0];
+						for (SachVaTacGia a :lsSachVaTacGia) {
+							a.settAgIa(lsTacGia.get(0));
+						}
+						sach.get(0).setsAchtAcgIa(lsSachVaTacGia);
+					}
+				}
+			}
+			else{
+				SachVaTacGia sacTacGia= new SachVaTacGia();
+
+				sacTacGia.setsAchtAcgIa(sach.get(0));
+				sacTacGia.setVaiTro("Chủ Bút");
+				lsTacGia= (ArrayList<TacGia>) tacGiaService.FindbyProperty("TenTG",sachJson.getTacGia(),"MaTG","DESC")[0];
+				sacTacGia.settAgIa(lsTacGia.get(0));
+				sachVsTacGia.Add(sacTacGia);
+				List<SachVaTacGia> lsSachVaTacGia= new ArrayList<>();
+				lsSachVaTacGia.add(sacTacGia);
+				sach.get(0).setsAchtAcgIa(lsSachVaTacGia);
+				sachService.UpdateInfor(sach.get(0));
+			}
+			if(sachJson.getMoTa()!=""&&sachJson.getMoTa()!=sach.get(0).getMoTa()) sach.get(0).setMoTa(sachJson.getMoTa());
+			if(sachJson.getNgayCapNhat()!=null){
+				sach.get(0).setNgayCapNhat(new Date());
+			}
+			if(HinhAnh!="" && HinhAnh!=sach.get(0).getAnhBia()){
+				sach.get(0).setAnhBia(HinhAnh);
+			}
+			if(sachJson.getGiaBan()!=0)sach.get(0).setGiaBan(sachJson.getGiaBan());
+			if(sachJson.getSoLuongTon()!=0&&sachJson.getSoLuongTon()!=sach.get(0).getSoLuongTon()) sach.get(0).setSoLuongTon(sachJson.getSoLuongTon());
+			sachService.UpdateInfor(sach.get(0));
 			return "yes";
 		}catch (Exception e){}
 		return "no";

@@ -1,5 +1,7 @@
 package com.bansachonline.springmvc.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,16 +18,21 @@ public class SachVaTacGia {
 	@Column(name="MaCt")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int MaCt;
+
 	@ManyToOne
 	@JoinColumn(name="MaTG")
 	TacGia tAgIa;
+
 	@ManyToOne
 	@JoinColumn(name="MaSach")
 	Sach sAchtAcgIa;
+
 	@Column(name="VaiTro")
 	private String VaiTro;
+
 	@Column(name="ViTri")
 	private String ViTri;
+
 	public int getMaCt() {
 		return MaCt;
 	}

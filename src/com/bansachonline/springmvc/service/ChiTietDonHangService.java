@@ -18,7 +18,6 @@ public class ChiTietDonHangService {
 	public List<ChiTietDonHang> ShowAll(){
 		return dEtaildAo.FindAll();
 	}
-	
 	public int DeleteChiTietDonHang(ChiTietDonHang a)
 	{
 		return dEtaildAo.DeleteT(a);
