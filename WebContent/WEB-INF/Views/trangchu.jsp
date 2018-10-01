@@ -93,7 +93,7 @@
       <div class="row" >
            <c:forEach var="Sach" items="${ListSach}">
            		<div class="col-md-3 col-sm-6  wow rubberBand" data-wow-duration="1s" data-wow-delay="1s" >
-              		<div class="product" hfr>
+              		<div class="product" >
                   		<a href="/Chi-Tiet-San-Pham/Sach?MaSach=${Sach.getMaSach()}"><img src="/resources/image/${Sach.getAnhBia()}" alt="anh-ve-sach"></a><br/>
                   		<a href="/Chi-Tiet-San-Pham/Sach?MaSach=${Sach.getMaSach()}">Xem Chi Tiết<a/><br/>
               		</div>
