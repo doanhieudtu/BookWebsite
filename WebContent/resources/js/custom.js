@@ -6,8 +6,6 @@ $(document).ready(function() {
 			    var TongTien=parseInt($(".ThanhTien").text());
 			    var fomart=TongTien.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
 			    var ketqua=$(".ThanhTien").html(fomart);
-			    
-			 
 });
 			$("#singin").click(function(){
                 $("#singin").addClass("active");
@@ -235,7 +233,6 @@ $(document).ready(function() {
 				});
 			});
             $("#btnThemSach").click(function(event) {
-            	event.preventDefault();
             	var formdata = $("#FormSanPham" ).serializeArray();
             	json={};
             	$.each(formdata, function(i,field) {
@@ -246,8 +243,10 @@ $(document).ready(function() {
             	    url:"/api/them-san-pham",
             	    data:{dataJson:JSON.stringify(json),HinhAnh:tenhinh},
             	    success: function(data) {
-            			alert("Thêm Sách Thành Công !!!")
-                        window.location.replace('/san-pham/them');
+            			if(data=='1') {
+                            alert("Thêm Sách Thành Công !!!");
+                            window.location.replace('/san-pham/them');
+                        }
             	    }   	
 				});
 			})
@@ -513,6 +512,7 @@ $(document).ready(function() {
 			$("#giaBan").val($("#giaBanEdit").text());
 			$("#soLuongTon").val($("#soLuongEdit").text());
 			$("#moTa").val($("#moTaEdit").text());
+			$("#img-upload").val($("#hinhAnhEdit"));
 			$("#btnThemSach").hide();
 			$("#btnLuuSach").show();
 			$("#btnHuyChinhSua").show();
