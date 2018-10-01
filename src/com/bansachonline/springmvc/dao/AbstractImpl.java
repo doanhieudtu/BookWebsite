@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bansachonline.springmvc.interfacedao.GenericDao;
 @Repository
-public abstract class AbstractImpl<ID extends Serializable,T> implements GenericDao<ID, T> {
+public abstract class AbstractImpl<ID extends Serializable,T> implements GenericDao<ID, T>{
 	
 	private Class<T> persistenceClass;
 

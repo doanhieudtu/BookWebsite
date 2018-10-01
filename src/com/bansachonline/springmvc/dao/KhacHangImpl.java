@@ -16,9 +16,9 @@ import com.bansachonline.springmvc.model.KhachHang;
 @Repository
 @Scope(proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class KhacHangImpl extends AbstractImpl<Integer, KhachHang> implements KhachHangDao{
-	@Autowired
-	SessionFactory sessionFactory;
-	
+//	@Autowired
+//	SessionFactory sessionFactory;
+//
 	@Override
 	@Transactional
 	public KhachHang DangNhap(String email, String matkhau) {

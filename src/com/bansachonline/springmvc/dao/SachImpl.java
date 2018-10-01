@@ -17,23 +17,32 @@ import com.bansachonline.springmvc.model.Sach;
 @Repository
 public class SachImpl extends AbstractImpl<Integer,Sach> implements SachDao{
 	
-	@Autowired
-	SessionFactory sessionFactory;
-	
-	@Transactional
+//	@Autowired
+//	SessionFactory sessionFactory;
+
+
 	@Override
+	@Transactional
 	public List<Sach> ShowInforSach(int size, int begin) {
 		List<Sach> resulta= new ArrayList<Sach>();
 		List<Sach> result= new ArrayList<Sach>();
 		Session ss= sessionFactory.getCurrentSession();
-		Query sql=ss.createQuery("FROM Sach");
-		resulta= sql.getResultList();
+		StringBuilder hQl= new StringBuilder("FROM Sach");
+		Query query= ss.createQuery(hQl.toString());
+		resulta= query.getResultList();
 		double Maxsize= resulta.size();
 		if(begin==0)
-		{	
-			for(int i=0;i<size;i++)
+		{
+			if(size>Maxsize)
+			for(int i=0;i<Maxsize;i++)
 			{
 				result.add(resulta.get(i));
+			}
+			else{
+				for(int i=0;i<size;i++)
+				{
+					result.add(resulta.get(i));
+				}
 			}
 		}
 		else
