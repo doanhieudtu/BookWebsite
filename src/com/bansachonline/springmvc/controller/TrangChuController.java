@@ -17,7 +17,7 @@ import com.bansachonline.springmvc.service.SachService;
 
 @Controller
 @SessionAttributes({"User","GioHang"})
-@RequestMapping("/cdio/")
+@RequestMapping("/bookstore/")
 public class TrangChuController {
 	@Autowired
 	SachService sachService;

@@ -16,7 +16,7 @@
 <body>
     <div class="container-fluid header-menu" >
             <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-all">
-                    <a class="navbar-brand wow pulse"  data-wow-duration="5s" href="/cdio/trangchu"> <img src="/resources/image/logo.jpg"/></a>
+                    <a class="navbar-brand wow pulse"  data-wow-duration="5s" href="/bookstore/trangchu"> <img src="/resources/image/logo.jpg"/></a>
                     <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                     </button>
@@ -24,7 +24,7 @@
                     <div class="collapse navbar-collapse navbar-home-lik-vv" id="navbarSupportedContent">
                       <ul class="navbar-nav mr-auto narbar-menu">
                         <li class="nav-item active">
-                          <a class="nav-link " href="/cdio/trangchu">Trang Chủ<span class="sr-only">(current)</span></a>
+                          <a class="nav-link " href="/bookstore/trangchu">Trang Chủ<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="#">Dịch Vụ</a>

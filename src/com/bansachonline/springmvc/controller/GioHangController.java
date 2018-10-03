@@ -33,7 +33,7 @@ public class GioHangController {
 			// TODO: handle exception
 		}
 		if(gioHang==null){
-			return "redirect:/cdio/trangchu";
+			return "redirect:/bookstore/trangchu";
 		}
 		else
 		{
