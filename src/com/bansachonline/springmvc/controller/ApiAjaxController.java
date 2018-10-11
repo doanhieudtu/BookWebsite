@@ -126,7 +126,6 @@ public class ApiAjaxController {
 					ss.setAttribute("GioHang", gioHang);
 					System.out.println("Da them");
 			}
-			
 		}
 		
 	}
@@ -147,7 +146,6 @@ public class ApiAjaxController {
 							xuLyGioHang.ThemSoLuong(MaSanPham, a,soluong);
 							xuLyGioHang.TongTien(gioHang);
 							ss.setAttribute("GioHang", gioHang);
-							
 							return String.valueOf(gioHang.getTongTien());
 					}
 						
